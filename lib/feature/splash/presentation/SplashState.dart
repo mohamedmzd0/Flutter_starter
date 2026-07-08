@@ -13,7 +13,8 @@ class SplashLoading extends SplashState {
 }
 
 class SplashFailure extends SplashState {
-  const SplashFailure();
+  final String message;
+  const SplashFailure(this.message);
 }
 
 class NavigateToLogin extends SplashState {

@@ -27,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(title: const Text("Login")),
-        body: Padding(padding: const EdgeInsets.all(16.0), child: Form(
+        body: Padding(padding: const EdgeInsets.all(16.0),
+          child: Form(
           key: _formKey,
           child: Column(children: [
 
@@ -55,6 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
             ),
+
+            const SizedBox(height: 24.0),
 
             BlocConsumer<LoginCubit, LoginState>(
               listener: (context, state) {

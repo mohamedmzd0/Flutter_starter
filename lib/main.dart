@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:starter/app/di/service_locator.dart';
 import 'package:starter/app/router/app_router.dart';
 import 'package:starter/feature/auth/presentation/login/LoginCubit.dart';
 import 'package:starter/feature/auth/presentation/login/LoginScreen.dart';
@@ -9,9 +10,11 @@ import 'package:starter/feature/home/presentation/home_screen.dart';
 import 'package:starter/feature/splash/presentation/SplashCubit.dart';
 import 'package:starter/feature/splash/presentation/splash_screen.dart';
 
-void main() {
-  GetIt.instance.registerFactory<SplashCubit>(() => SplashCubit());
-  GetIt.instance.registerFactory<LoginCubit>(() => LoginCubit());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await setupLocator();
+
   runApp(const MyApp());
 }
 

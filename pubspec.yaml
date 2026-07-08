@@ -36,6 +36,9 @@ dependencies:
   go_router:
   get_it: ^8.2.0
   injectable: ^2.5.0
+  shared_preferences: ^2.5.5
+  dio: ^5.9.0
+  package_info_plus: ^9.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons:

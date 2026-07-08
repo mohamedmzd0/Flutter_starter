@@ -1,19 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starter/core/pref/SharedPref.dart';
+import 'package:starter/feature/auth/data/data/CheckMailResponse.dart';
+import 'package:starter/feature/auth/domain/AuthRepo.dart';
 import 'package:starter/feature/auth/presentation/login/LoginState.dart';
-import 'package:starter/feature/splash/presentation/SplashState.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const LoginInitial());
+  LoginCubit(this._pref, this._authRepo) : super(const LoginInitial());
+  final SharedPref _pref;
 
+  final AuthRepo _authRepo;
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
 
-    await Future.delayed(const Duration(seconds: 2));
+    CheckMailResponse response = await _authRepo.login(email, password);
 
-    if (email == "admin@test.com" && password == "123456") {
+    if (response.success == true) {
+      // _pref.saveToken("token");
       emit(LoginSuccess());
     } else {
+      _pref.removeToken();
       emit(LoginFailure("Invalid email or password"));
     }
+
   }
 }

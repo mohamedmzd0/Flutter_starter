@@ -5,7 +5,6 @@ import 'package:starter/app/router/app_router.dart';
 import 'package:starter/feature/splash/presentation/SplashCubit.dart';
 import 'package:starter/feature/splash/presentation/SplashState.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -25,20 +24,24 @@ class _SplashPageState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
-        if (state is NavigateToLogin) {
-          context.go(Routes.login);
-        }
-
-        if (state is NavigateToHome) {
-          context.go(Routes.home);
+        switch (state) {
+          case NavigateToLogin():
+            context.go(Routes.login);
+          case NavigateToHome():
+            context.go(Routes.home);
+          case SplashInitial():{}
+          case SplashLoading():{}
+          case SplashFailure():{
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
         }
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: FlutterLogo(size: 120),
-          ),
-        ),
+        body: SafeArea(child: Center(child: const FlutterLogo(size: 120))),
       ),
     );
   }
